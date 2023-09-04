@@ -20,6 +20,7 @@ const Search = ({ searchLength, setSearchResults }) => {
             },
           }
         );
+
         setSearchResults(data);
       } catch (error) {
         console.log(error.response.data.error.message);

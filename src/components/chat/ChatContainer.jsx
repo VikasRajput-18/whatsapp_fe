@@ -4,9 +4,11 @@ import ChatMessages from "./messages/ChatMessages";
 import { ChatActions } from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { getConversationMessages } from "../../features/chatSlice";
+import { checkOnlineStatus, getConversationId } from "../../utils/chat.util";
+import FilePreview from "./preview/files/FilePreview";
 
-const ChatContainer = () => {
-  const { activeConversation } = useSelector((state) => state.chat);
+const ChatContainer = ({ onlineUsers, typing }) => {
+  const { activeConversation, files } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
@@ -28,11 +30,23 @@ const ChatContainer = () => {
       {/* container  */}
       <div>
         {/* chat header  */}
-        <ChatHeader />
-        {/* chat mesages  */}
-        <ChatMessages />
-        {/* chat actions  */}
-        <ChatActions />
+        <ChatHeader
+          online={checkOnlineStatus(
+            onlineUsers,
+            user,
+            activeConversation.users
+          )}
+        />
+        {files.length > 0 ? (
+          <FilePreview />
+        ) : (
+          <>
+            {/* chat mesages  */}
+            <ChatMessages typing={typing} />
+            {/* chat actions  */}
+            <ChatActions />
+          </>
+        )}
       </div>
     </div>
   );

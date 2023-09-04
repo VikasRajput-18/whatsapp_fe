@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { DotsIcon, SearchLargeIcon } from "../../../svg";
 import { capitalize } from "../../../utils/strings.util";
 
-const ChatHeader = () => {
+const ChatHeader = ({ online }) => {
   const { activeConversation } = useSelector((state) => state.chat);
   const { name, picture } = activeConversation;
   return (
@@ -26,7 +26,9 @@ const ChatHeader = () => {
               {capitalize(name.split(" ")[0])}
             </h1>
 
-            <span className="text-xs dark:text-dark_svg_2">Online</span>
+            {online ? (
+              <span className="text-xs dark:text-dark_svg_2">Online</span>
+            ) : null}
           </div>
         </div>
         {/* right   */}

@@ -37,7 +37,6 @@ const RegisterForm = () => {
     if (picture) {
       await uploadImage()
         .then(async (cloduinary_res) => {
-          console.log("cloduinary_res", cloduinary_res);
           res = await dispatch(
             registerUser({ ...data, picture: cloduinary_res.secure_url })
           );

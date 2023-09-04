@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { open_create_conversation } from "../../../features/chatSlice";
+import { SocketContext } from "../../../context/SocketContext";
 
-const Contact = ({ contact }) => {
+const Contact = ({ contact, setSearchResults }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const socket = useContext(SocketContext);
 
   let values = {
     receiver_id: contact?._id,
     token: user?.token,
   };
 
-  const openConversation = () => {
-    dispatch(open_create_conversation(values));
+  const openConversation = async () => {
+    let newConvo = await dispatch(open_create_conversation(values));
+    socket.emit("join conversation", newConvo?.payload?._id);
+    setTimeout(() => {
+      setSearchResults([]);
+    }, 100);
   };
   return (
     <li

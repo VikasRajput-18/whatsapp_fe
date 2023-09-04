@@ -4,11 +4,11 @@ import { Notifications } from "./notifications";
 import { Search, SearchResults } from "./search";
 import { Conversations } from "./conversation";
 
-const Sidebar = () => {
+const Sidebar = ({ onlineUsers , typing }) => {
   const [searchResults, setSearchResults] = useState([]);
 
   return (
-    <div className="w-[40%] h-full select-none">
+    <div className="flex0030  max-w-[30%] h-full select-none">
       {/* sidebar header  */}
       <SidebarHeader />
       {/* notifications  */}
@@ -20,10 +20,13 @@ const Sidebar = () => {
       />
       {searchResults.length > 0 ? (
         <>
-          <SearchResults searchResults={searchResults} />
+          <SearchResults
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+          />
         </>
       ) : (
-        <Conversations />
+        <Conversations onlineUsers={onlineUsers} typing={typing} />
       )}
       {/* conversation  */}
     </div>
