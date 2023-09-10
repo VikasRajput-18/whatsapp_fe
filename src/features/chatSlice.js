@@ -36,11 +36,31 @@ export const getConversations = createAsyncThunk(
 export const open_create_conversation = createAsyncThunk(
   "conversation/open_create",
   async (values, { rejectWithValue }) => {
-    const { token, receiver_id } = values;
+    const { token, receiver_id, isGroup } = values;
     try {
       const { data } = await api.post(
         "/conversation",
-        { receiver_id },
+        { receiver_id, isGroup },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.error.messgae);
+    }
+  }
+);
+export const createGroupConversation = createAsyncThunk(
+  "conversation/create_group",
+  async (values, { rejectWithValue }) => {
+    const { token, name, users } = values;
+    try {
+      const { data } = await api.post(
+        "/conversation/group",
+        { name, users },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,6 +84,7 @@ export const getConversationMessages = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("data", data);
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data.error.messgae);

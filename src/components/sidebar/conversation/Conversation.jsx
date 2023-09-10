@@ -10,7 +10,7 @@ import {
 import { capitalize } from "../../../utils/strings.util";
 import { SocketContext } from "../../../context/SocketContext";
 
-// 70 
+// 70
 const Conversation = ({ convo, online, typing }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -20,8 +20,10 @@ const Conversation = ({ convo, online, typing }) => {
 
   let values = {
     receiver_id: getConversationId(user, convo.users),
+    isGroup: convo.isGroup ? convo?._id : false,
     token: user?.token,
   };
+
 
   const openConversation = async () => {
     let newConvo = await dispatch(open_create_conversation(values));
@@ -48,7 +50,11 @@ const Conversation = ({ convo, online, typing }) => {
             }`}
           >
             <img
-              src={capitalize(getConversationPicture(user, convo.users))}
+              src={
+                convo?.isGroup
+                  ? convo?.picture
+                  : getConversationPicture(user, convo.users)
+              }
               alt={"user"}
               className="w-full h-full object-cover"
             />
@@ -58,7 +64,9 @@ const Conversation = ({ convo, online, typing }) => {
           <div className="w-full flex flex-1  flex-col">
             {/* conversation name  */}
             <h1 className="capitalize font-bold flex items-center gap-y-2">
-              {capitalize(getConversationName(user, convo.users))}
+              {convo?.isGroup
+                ? convo?.name
+                : capitalize(getConversationName(user, convo.users))}
             </h1>
             {/* { conversation message } */}
             <div>

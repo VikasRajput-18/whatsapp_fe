@@ -4,7 +4,7 @@ import { getConversations } from "../../../features/chatSlice";
 import Conversation from "./Conversation";
 import { checkOnlineStatus, getConversationId } from "../../../utils/chat.util";
 
-const Conversations = ({ onlineUsers , typing }) => {
+const Conversations = ({ onlineUsers, typing }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { conversations, activeConversation } = useSelector(
@@ -21,14 +21,19 @@ const Conversations = ({ onlineUsers , typing }) => {
       <ul>
         {conversations &&
           conversations
-            .filter((c) => c.latestMessage || c._id === activeConversation._id)
+            .filter(
+              (c) =>
+                c.latestMessage ||
+                c._id === activeConversation._id ||
+                c.isGroup == true
+            )
             .map((convo, i) => {
               let check = checkOnlineStatus(onlineUsers, user, convo.users);
               return (
                 <Conversation
                   convo={convo}
                   key={convo._id}
-                  online={check ? true : false}
+                  online={!check.isGroup && check ? true : false}
                   typing={typing}
                 />
               );

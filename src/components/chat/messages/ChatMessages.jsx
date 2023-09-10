@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Message from "./Message";
 import Typing from "./Typing";
+import FileMessage from "./files/FileMessage";
 
 const ChatMessages = ({ typing }) => {
   const endRef = useRef();
@@ -12,6 +13,7 @@ const ChatMessages = ({ typing }) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
 
   const scrollToBottom = () => {
     endRef.current.scrollIntoView({
@@ -26,11 +28,25 @@ const ChatMessages = ({ typing }) => {
         {/* messages  */}
         {messages &&
           messages?.map((message) => (
-            <Message
-              message={message}
-              key={message?._id}
-              me={user?._id === message?.sender?._id}
-            />
+            <div key={message?._id}>
+              {message.files.length > 0
+                ? message.files.map((file, ind) => (
+                    <FileMessage
+                      fileMessage={file}
+                      message={message}
+                      key={ind}
+                      me={user?._id === message?.sender?._id}
+                    />
+                  ))
+                : null}
+              {message.message.length > 0 ? (
+                <Message
+                  message={message}
+                  // key={message?._id}
+                  me={user?._id === message?.sender?._id}
+                />
+              ) : null}
+            </div>
           ))}
         <div className="mt-4" ref={endRef}></div>
         {typing === activeConversation._id ? <Typing /> : ""}

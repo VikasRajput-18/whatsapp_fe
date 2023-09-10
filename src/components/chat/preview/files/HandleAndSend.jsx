@@ -9,7 +9,6 @@ import Add from "./Add";
 import { CloseIcon, SendIcon } from "../../../../svg";
 import { uploadFiles } from "../../../../utils/upload";
 
-import VideoThumbnail from "react-video-thumbnail";
 import {
   clearFiles,
   removeFileFromFiles,
@@ -64,7 +63,7 @@ const HandleAndSend = ({ message, activeIndex, setActiveIndex }) => {
       token,
       message,
       convo_id: activeConversation?._id,
-      files: uploaded_files > 0 ? uploaded_files : [],
+      files: uploaded_files.length > 0 ? uploaded_files : [],
     };
     let newMsg = await dispatch(sendMessages(values));
     setLoading(false);
