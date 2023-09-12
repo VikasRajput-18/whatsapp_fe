@@ -10,6 +10,9 @@ const Conversations = ({ onlineUsers, typing }) => {
   const { conversations, activeConversation } = useSelector(
     (state) => state.chat
   );
+
+  console.log("conversations", conversations);
+
   useEffect(() => {
     if (user) {
       dispatch(getConversations(user?.token));
@@ -21,10 +24,10 @@ const Conversations = ({ onlineUsers, typing }) => {
       <ul>
         {conversations &&
           conversations
-            .filter(
+            ?.filter(
               (c) =>
                 c.latestMessage ||
-                c._id === activeConversation._id ||
+                c._id === activeConversation?._id ||
                 c.isGroup == true
             )
             .map((convo, i) => {
