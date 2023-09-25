@@ -37,9 +37,9 @@ function Home() {
   const [callAccepted, setCallAccepted] = useState(false);
   const [totalSecInCall, setTotalSecInCall] = useState(0);
 
-  const myVideo = useRef();
-  const userVideo = useRef();
-  const connectionRef = useRef();
+  const myVideo = useRef(null);
+  const userVideo = useRef(null);
+  const connectionRef = useRef(null);
   //typing
   const [typing, setTyping] = useState(false);
   //join user into the socket io
@@ -155,6 +155,13 @@ function Home() {
       dispatch(getConversations(user.token));
     }
   }, [user]);
+
+  useEffect(() => {
+    if (stream) {
+      myVideo.current.srcObject = stream;
+      setShow(true);
+    }
+  }, [stream]);
 
   useEffect(() => {
     //lsitening to receiving a message
