@@ -26,7 +26,7 @@ const FileMessage = ({ fileMessage, message, me }) => {
      ${me ? "bg-white border-[3px] border-green_3" : "dark:bg-dark_bg_2"}
      ${
        me && fileMessage.file.public_id.split(".")[1] === "png"
-         ? "bg-white"
+         ? "bg-slate-300"
          : "bg-green_3"
      }
     `}
