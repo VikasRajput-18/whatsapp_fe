@@ -135,8 +135,8 @@ function Home() {
   };
   //--------------------------
   const setupMedia = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+    navigator?.mediaDevices
+      ?.getUserMedia({ video: true, audio: true })
       .then((stream) => {
         setStream(stream);
       });
