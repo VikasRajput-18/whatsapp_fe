@@ -46,7 +46,7 @@ const ChatHeader = ({ online, callUser }) => {
         </div>
         {/* right   */}
         <ul className="flex items-center gap-x-2.5">
-          {1 === 1 ? (
+          {/* {1 === 1 ? (
             <li onClick={() => callUser()}>
               <button className="btn">
                 <VideoCallIcon />
@@ -59,7 +59,7 @@ const ChatHeader = ({ online, callUser }) => {
                 <CallIcon />
               </button>
             </li>
-          ) : null}
+          ) : null} */}
           <li>
             <button className="btn">
               <SearchLargeIcon className={"dark:fill-dark_svg_1"} />
