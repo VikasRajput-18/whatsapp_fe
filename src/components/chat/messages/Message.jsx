@@ -27,11 +27,11 @@ const Message = ({ message, me }) => {
         `}
         >
           {/* message  */}
-          <p className="float-left h-full text-sm pb-4 pr-8">
+          <p className="float-left h-full text-sm pb-6 pr-8">
             {message?.message}
           </p>
           {/* message date  */}
-          <span className="absolute right-1.5 bottom-1.5 text-xs text-dark_text_5 leading-none">
+          <span className="absolute right-1.5 bottom-1.5 text-xs  text-dark_text_5 leading-none">
             {moment(message.createdAt).format("LT")}
           </span>
           {/* triangle  */}
