@@ -133,7 +133,7 @@ function Home() {
     socket.emit("end call", call.socketId);
     connectionRef?.current?.destroy();
   };
-  //--------------------------
+ 
   const setupMedia = () => {
     navigator?.mediaDevices
       ?.getUserMedia({ video: true, audio: true })
