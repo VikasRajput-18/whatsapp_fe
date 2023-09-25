@@ -146,8 +146,11 @@ function Home() {
   };
 
   const enableMedia = () => {
-    myVideo.current.srcObject = stream;
-    setShow(true);
+    if(stream){
+      myVideo.current.srcObject = stream;
+      setShow(true);
+
+    }
   };
   //get Conversations
   useEffect(() => {
